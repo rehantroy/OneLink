@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# secrets (keep only the example file)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+client_secret*.json
+
+# database
+data.db
+*.db
+*.db-*
+*.sqlite
+
+# uploads and logs
+uploads/
+*.log
+
+# editor and OS files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# screenshots (real ones for the README go in docs/)
+*.png
+*.jpg
+*.jpeg
+!docs/*.png

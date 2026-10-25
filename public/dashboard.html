@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - OneLink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dashboard">
+  <header class="dash-nav">
+    <div class="dash-nav-inner">
+      <a href="/dashboard" class="logo"><svg class="logo-mark" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect class="logo-bg" width="28" height="28" rx="8"/><g class="logo-links" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round"><g transform="rotate(-45 14 14)"><rect x="5.5" y="10.5" width="10" height="7" rx="3.5"/><rect x="12.5" y="10.5" width="10" height="7" rx="3.5"/></g></g></svg><span class="logo-word">one<span>link</span></span></a>
+
+      <nav class="dash-tabs" id="dashTabs" aria-label="Dashboard sections">
+        <button class="dash-tab" type="button" data-tab="links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>
+          <span>Links</span>
+        </button>
+        <button class="dash-tab" type="button" data-tab="appearance">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/><path d="M12 21a2.5 2.5 0 0 1 0-5h2a3 3 0 0 0 3-3"/></svg>
+          <span>Appearance</span>
+        </button>
+        <button class="dash-tab" type="button" data-tab="analytics">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M6 17v-6"/><path d="M12 17V5"/><path d="M18 17v-9"/></svg>
+          <span>Analytics</span>
+        </button>
+        <span class="tab-indicator" id="tabIndicator"></span>
+      </nav>
+
+      <div class="dash-nav-right">
+        <a class="btn-ghost" id="myPageBtn" target="_blank" rel="noopener" hidden>
+          <span class="label-long">View my page</span><span class="label-short">View</span>
+        </a>
+
+        <div class="account">
+          <button class="avatar-btn" id="avatarBtn" type="button" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
+            <img id="topAvatar" alt="" referrerpolicy="no-referrer" hidden>
+            <span id="topAvatarLetter"></span>
+          </button>
+
+          <div class="account-menu" id="accountMenu" hidden>
+            <div class="account-info">
+              <strong id="menuName"></strong>
+              <small id="menuEmail"></small>
+            </div>
+            <button class="menu-item" id="menuCopyBtn" type="button">Copy my link</button>
+            <button class="menu-item danger" id="logoutBtn" type="button">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="welcome">
+        <div>
+          <h1>Hi, <span id="firstName"><span class="skeleton skeleton-text"></span></span> 👋</h1>
+          <p>Here's how your page is doing</p>
+        </div>
+        <div class="url-pill" id="urlPill" hidden>
+          <span id="shareUrl"></span>
+          <button class="icon-btn" id="copyBtn" type="button" title="Copy link" aria-label="Copy link">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="links">
+        <div class="panel">
+          <h2>Links</h2>
+          <p class="panel-sub">Add the links you want on your page.</p>
+
+          <form id="addLinkForm" class="form-row">
+            <input id="linkTitle" placeholder="Title (e.g. Instagram)" maxlength="60">
+            <input id="linkUrl" placeholder="instagram.com/yourname">
+            <button class="btn">Add</button>
+          </form>
+
+          <ul class="link-list" id="linkList">
+            <li class="skeleton skeleton-item"></li>
+            <li class="skeleton skeleton-item"></li>
+            <li class="skeleton skeleton-item"></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="appearance" hidden>
+        <div class="panel">
+          <h2>Profile</h2>
+          <p class="panel-sub" id="profileHint">Pick a username to get your page.</p>
+
+          <form id="profileForm">
+            <label for="username">Username</label>
+            <div class="username-field">
+              <span id="usernamePrefix"></span>
+              <input id="username" placeholder="yourname" maxlength="20" autocomplete="off">
+            </div>
+
+            <label for="name">Display name</label>
+            <input id="name" maxlength="50">
+
+            <label for="bio">Bio</label>
+            <textarea id="bio" maxlength="160" placeholder="A line about you"></textarea>
+
+            <label>Theme color</label>
+            <div class="themes" id="themes"></div>
+
+            <button class="btn" style="margin-top:18px">Save profile</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="tab-panel" data-panel="analytics" hidden>
+        <div class="stats">
+          <div class="stat"><b id="statLinks">0</b><span>Active links</span></div>
+          <div class="stat"><b id="statClicks">0</b><span>Total clicks</span></div>
+          <div class="stat"><b id="statTop" class="stat-top">—</b><span>Top link</span></div>
+        </div>
+
+        <div class="panel">
+          <h2>Clicks per link</h2>
+          <p class="panel-sub">Sorted by most clicks.</p>
+          <ul class="click-bars" id="clickBars"></ul>
+        </div>
+      </section>
+    </main>
+
+    <aside class="preview">
+      <div class="phone" id="phone"></div>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="/dashboard" class="logo"><svg class="logo-mark" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect class="logo-bg" width="28" height="28" rx="8"/><g class="logo-links" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round"><g transform="rotate(-45 14 14)"><rect x="5.5" y="10.5" width="10" height="7" rx="3.5"/><rect x="12.5" y="10.5" width="10" height="7" rx="3.5"/></g></g></svg><span class="logo-word">one<span>link</span></span></a>
+          <p>One link for everything you share.</p>
+        </div>
+
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h3>Product</h3>
+            <ul>
+              <li><a href="/#features">Features</a></li>
+              <li><a href="/#pricing">Pricing</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="mailto:rehantroybusiness@gmail.com">rehantroybusiness@gmail.com</a></li>
+              <li><a href="/privacy.html">Privacy</a></li>
+              <li><a href="/terms.html">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 OneLink</p>
+        <p>Made with care in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
